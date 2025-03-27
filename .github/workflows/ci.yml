@@ -34,10 +34,3 @@ jobs:
         with:
           scan-type: fs
           scan-ref: .
-
-      - name: Upload coverage reports
-        if: always()
-        uses: actions/upload-artifact@v3
-        with:
-          name: coverage
-          path: coverage/
