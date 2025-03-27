@@ -69,7 +69,7 @@ portfolio/
 
 Ensure you have the following installed:
 
-- **Node.js:** Latest LTS version (v22.14.0 as of March 26, 2025) citeturn0search0
+- **Node.js:** Latest LTS version (v22.14.0 as of March 26, 2025)
 - **npm:** Comes with Node.js
 - **Git:** Version control system
 
@@ -161,11 +161,6 @@ This project utilizes GitHub Actions for continuous integration and deployment. 
 ## Environment Variables
 
 Create a `.env` file in the root directory to define environment-specific variables. Refer to `.env.example` for required variables:
-
-```.env
-NEXT_PUBLIC_API_URL=https://api.example.com
-NEXT_PUBLIC_ANALYTICS_ID=your-analytics-id
-```
 
 ## License
 
