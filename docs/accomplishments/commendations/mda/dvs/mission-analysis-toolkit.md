@@ -60,7 +60,7 @@ Type:  Email
 
 ```markdown
 Jonathan
-Having worked for MDA for 3 years, I know the important mission and high standards that have for contractor performance.  Well done!
+Having worked for MDA for 3 years, I know the ***important mission*** and ***high standards*** that have for contractor performance.  Well done!
 
 VR
 Dave
