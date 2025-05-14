@@ -42,3 +42,8 @@ next-env.d.ts
 
 # vs code
 .vscode/.history
+
+# project
+docs/accomplishments/commendations/mda/dvs/original/**/*
+docs/**/*.annotated.*
+docs/jobs/
