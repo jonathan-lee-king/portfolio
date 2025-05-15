@@ -181,30 +181,25 @@ export default function ResumePage() {
   }, []);
 
   return (
-    <main className="min-h-screen h-screen bg-gray-950 text-white flex flex-col relative">
-      {/* Touch handle to pull down nav bar */}
-      {!isNavVisible && (
-        <div
-          className="fixed top-0 left-0 right-0 h-8 z-50 flex justify-center items-center touch-manipulation bg-gradient-to-b from-gray-950/40 to-transparent"
-          onClick={() => setIsNavVisible(true)}
-          onTouchStart={() => setIsNavVisible(true)}
-        >
-          <div className="w-16 h-1 bg-white/20 rounded-full mt-3"></div>
-        </div>
-      )
-      }
-
-      {/* Fixed position header with controls */}
+    <main className="min-h-screen h-screen bg-gray-950 text-white flex flex-col relative">      {/* Ultra-minimal touch handle to pull down nav bar with matching transition */}
       <div
-        className={`fixed top-0 left-0 right-0 bg-gray-950/40 backdrop-blur-xl px-6 py-5 z-50
-          flex items-center justify-center gap-3 shadow-[0_4px_30px_rgba(0,0,0,0.1)] border-b border-white/10
-          transition-all duration-500 ease-in-out ${!isNavVisible ? 'opacity-0 transform -translate-y-full' : 'opacity-100 transform translate-y-0'}`}
+        className={`fixed top-0 left-0 right-0 h-1.5 z-[60] flex justify-center items-center touch-manipulation cursor-pointer
+          transition-all duration-500 ease-in-out will-change-opacity
+          ${isNavVisible ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}
+        onClick={() => setIsNavVisible(true)}
+        onTouchStart={() => setIsNavVisible(true)}
+      >
+      </div>{/* Fixed position header with controls - will overlay the PDF */}      <div
+        className={`fixed top-0 left-0 right-0 bg-gray-950/90 backdrop-blur-xl px-6 py-5 z-[51]
+          flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-3 shadow-[0_4px_30px_rgba(0,0,0,0.5)] border-b border-white/10
+          transition-all duration-500 ease-in-out will-change-transform will-change-opacity
+          ${!isNavVisible ? 'opacity-0 transform -translate-y-full' : 'opacity-100 transform translate-y-0'}`}
       >
         <Link
           href="/"
           className="bg-gradient-to-r from-blue-600 to-blue-400 hover:from-blue-500 hover:to-blue-300
             text-white px-6 py-2.5 rounded-xl shadow-lg transition-all duration-300
-            flex items-center gap-2 font-medium absolute left-6
+            flex items-center gap-2 font-medium sm:absolute sm:left-6 mb-3 sm:mb-0
             hover:shadow-[0_0_15px_rgba(59,130,246,0.5)] hover:scale-105"
         >
           <span className="text-lg">←</span> Back to Home
@@ -217,7 +212,7 @@ export default function ResumePage() {
               download
               className="bg-gradient-to-r from-emerald-600 to-emerald-400 hover:from-emerald-500 hover:to-emerald-300
                 text-white px-8 py-2.5 rounded-xl shadow-lg transition-all duration-300
-                text-sm font-medium mx-auto flex items-center gap-2
+                text-sm font-medium mx-auto flex items-center gap-2 mb-3 sm:mb-0
                 hover:shadow-[0_0_15px_rgba(16,185,129,0.5)] hover:scale-105"
             >
               <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -225,7 +220,7 @@ export default function ResumePage() {
               </svg>
               Download PDF
             </a>
-            <div className="absolute right-6">
+            <div className="sm:absolute sm:right-6">
               <PDFZoomControls
                 scale={scale}
                 onZoomIn={zoomIn}
@@ -235,20 +230,16 @@ export default function ResumePage() {
             </div>
           </>
         )}
-      </div>
-
-      {/* Full screen PDF viewer with top margin to account for fixed header */}
+      </div>      {/* Full screen PDF viewer anchored at the top of the window (y=0) */}
       {isMounted ? (
-        <div className="flex-grow w-full h-full">
+        <div className="flex-grow w-full h-full relative">
           <PDFViewer
             pdfPath={resumePath}
             scale={scale}
             onDocumentLoad={handleDocumentLoad}
             containerRef={containerRef}
           />
-        </div>
-      ) : (
-        <div className="flex-grow flex justify-center items-center">
+        </div>      ) : (        <div className="flex-grow flex justify-center items-center pt-0">
           <div className="animate-pulse text-gray-400 flex items-center gap-3">
             <svg className="animate-spin h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
               <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
