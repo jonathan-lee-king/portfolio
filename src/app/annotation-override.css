@@ -1,0 +1,44 @@
+/* Custom CSS to override PDF annotation link styles */
+.react-pdf__Page__annotations {
+  pointer-events: none; /* Disable the container's pointer events */
+}
+
+.react-pdf__Page__annotations .annotationLayer {
+  pointer-events: auto; /* Enable pointer events on annotation elements */
+}
+
+/* Make sure link annotations only trigger when directly clicked */
+.react-pdf__Page__annotations .annotationLayer .linkAnnotation {
+  pointer-events: auto;
+}
+
+/* Apply normal link cursor */
+.react-pdf__Page__annotations .annotationLayer .linkAnnotation a {
+  cursor: pointer;
+  /* Remove any existing padding/margin that might enlarge the hit area */
+  padding: 0 !important;
+  margin: 0 !important;
+  /* Ensure link only works when directly clicked */
+  border: none !important;
+  background: transparent !important;
+}
+
+/* Override any touch-specific styling for links */
+@media (pointer: coarse) {
+  .react-pdf__Page__annotations .annotationLayer .linkAnnotation a {
+    min-height: unset !important;
+    min-width: unset !important;
+  }
+
+  /* Explicitly set touchAction for PDF links */
+  .react-pdf__Page__annotations .annotationLayer .linkAnnotation a {
+    touch-action: auto !important;
+  }
+
+  /* Remove any hidden touch padding */
+  .react-pdf__Page__annotations .annotationLayer .linkAnnotation::before,
+  .react-pdf__Page__annotations .annotationLayer .linkAnnotation::after {
+    display: none !important;
+    content: none !important;
+  }
+}
