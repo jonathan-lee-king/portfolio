@@ -3,9 +3,6 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
-}
-
-@theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
@@ -19,8 +16,83 @@
   }
 }
 
+/* Navigation auto-hide styles */
+.nav-header {
+  transform: translateY(0);
+  transition: transform 0.5s ease-in-out;
+  will-change: transform;
+  -webkit-transition: transform 0.5s ease-in-out;
+  -moz-transition: transform 0.5s ease-in-out;
+}
+
+.nav-header.nav-hidden {
+  transform: translateY(-100%);
+  -webkit-transform: translateY(-100%);
+  -moz-transform: translateY(-100%);
+}
+
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+}
+
+html, body, #__next {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+/* Specific styles for the resume PDF container */
+.pdf-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.pdf-viewer-container {
+  /* Start PDF from the very top */
+  padding: 0;
+  margin: 0;
+  /* Hide scrollbar but keep functionality */
+  scrollbar-width: thin;
+  scrollbar-color: rgba(156, 163, 175, 0.5) transparent;
+}
+
+/* Customize scrollbar for Webkit browsers */
+.pdf-viewer-container::-webkit-scrollbar {
+  width: 8px;
+}
+
+.pdf-viewer-container::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.pdf-viewer-container::-webkit-scrollbar-thumb {
+  background-color: rgba(156, 163, 175, 0.5);
+  border-radius: 4px;
+}
+
+/* General button styles for PDF viewer controls */
+.pdf-controls button, .pdf-controls a {
+  background-color: rgba(74, 85, 104, 0.8);
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  transition: background-color 0.2s ease-in-out;
+  font-size: 0.875rem;
+  font-weight: 500;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.pdf-controls button:hover, .pdf-controls a:hover {
+  background-color: rgba(45, 55, 72, 0.9);
+}
+
+.pdf-controls button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
