@@ -30,13 +30,11 @@ export default function PDFViewer({ pdfPath, scale, onDocumentLoad, containerRef
     setNumPages(pdf.numPages);
     onDocumentLoad(pdf);
   }
-
-  return (
-    <div className="h-full flex flex-col relative">
-      {/* Full height PDF container starting from the top */}
+  return (    <div className="h-full flex flex-col relative">
+      {/* Full height PDF container anchored to the top (y=0) */}
       <div
         ref={containerRef}
-        className="flex-grow h-full w-full overflow-auto pdf-viewer-container px-2 touch-manipulation"
+        className="absolute top-0 left-0 right-0 bottom-0 overflow-auto pdf-viewer-container px-2 touch-manipulation"
       >
         <Document
           file={pdfPath}
