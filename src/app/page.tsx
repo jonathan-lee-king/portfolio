@@ -1,6 +1,9 @@
 import Link from "next/link";
+import { getLastCommitDate } from "@/lib/git-utils";
 
-export default function Home() {
+export default async function Home() {
+  // Get the last commit date dynamically
+  const lastUpdatedDate = await getLastCommitDate();
   return (
     <main className="min-h-screen bg-gray-950 text-white px-8 py-16">
       <header className="mb-20">
@@ -28,7 +31,17 @@ export default function Home() {
       <section>
         <h2 className="text-2xl font-semibold mb-6">📂 Micro Projects</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {/* Example project card */}
+          {/* Work in Progress Message */}
+          <div className="bg-gray-800 rounded-xl p-6 border border-gray-700 col-span-full">
+            <h3 className="text-xl font-bold mb-2">🚧 Under Construction 🚧</h3>
+            <p className="text-sm text-gray-400">
+              The micro-projects section is currently being updated with real-world examples.
+              <br />
+              Last updated: {lastUpdatedDate}
+            </p>
+          </div>
+
+          {/* Commented example projects
           <Link
             href="/projects/k8s-secrets-demo"
             className="bg-gray-800 hover:bg-gray-700 rounded-xl p-6 transition-colors border border-gray-700"
@@ -58,6 +71,7 @@ export default function Home() {
               A secured API with token-based auth, RBAC, and assumptions of breach. Demonstrates Zero Trust principles.
             </p>
           </Link>
+          */}
         </div>
       </section>
     </main>
