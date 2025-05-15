@@ -1,6 +1,7 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -23,8 +24,14 @@ export default function RootLayout({
         <title>Jonathan King&apos;s Portfolio</title>
       </head>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+        {/* Main Content */}
         {children}
+
+        {/* Vercel Analytics Tracking:  https://vercel.com/docs/analytics/quickstart#add-the-analytics-component-to-your-app */}
         <Analytics />
+
+        {/* Vercel Speed Insights:  https://vercel.com/docs/speed-insights/quickstart#add-the-speedinsights-component-to-your-app  */}
+        <SpeedInsights />
       </body>
     </html>
   );
