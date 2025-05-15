@@ -6,6 +6,7 @@ import { Document, Page, pdfjs } from "react-pdf";
 import type { PDFDocumentProxy } from 'pdfjs-dist';
 import "react-pdf/dist/esm/Page/AnnotationLayer.css";
 import "react-pdf/dist/esm/Page/TextLayer.css";
+import "@/app/annotation-override.css"; // Custom CSS to fix large touchscreen hit areas
 
 // Apply the Promise.withResolvers polyfill
 applyPolyfill();
@@ -35,8 +36,7 @@ export default function PDFViewer({ pdfPath, scale, onDocumentLoad, containerRef
       <div
         ref={containerRef}
         className="absolute top-0 left-0 right-0 bottom-0 overflow-auto pdf-viewer-container px-2 touch-manipulation"
-      >
-        <Document
+      >        <Document
           file={pdfPath}
           onLoadSuccess={onDocumentLoadSuccess}
           loading={
@@ -52,15 +52,16 @@ export default function PDFViewer({ pdfPath, scale, onDocumentLoad, containerRef
             </div>
           }
           className="py-0 min-h-full flex flex-col items-center w-full"
+          externalLinkTarget="_blank"
         >
-          {Array.from(new Array(numPages), (el, index) => (
-            <Page
+          {Array.from(new Array(numPages), (_, index) => (            <Page
               key={`page_${index + 1}`}
               pageNumber={index + 1}
               scale={scale}
               renderTextLayer={true}
               renderAnnotationLayer={true}
               className="mx-auto mb-4"
+              // Ensure links work properly without oversized touch targets
             />
           ))}
         </Document>

@@ -187,7 +187,8 @@ export default function ResumePage() {
       // Clean up touch event listeners
       window.removeEventListener('touchstart', handleInteraction);
       window.removeEventListener('touchmove', handleInteraction);
-      window.removeEventListener('touchend', handleInteraction);      window.removeEventListener('dragstart', handleInteraction);
+      window.removeEventListener('touchend', handleInteraction);
+      window.removeEventListener('dragstart', handleInteraction);
       window.removeEventListener('drag', handleInteraction);
       window.removeEventListener('dragend', handleInteraction);
       if (timeoutRef.current) {
@@ -206,22 +207,34 @@ export default function ResumePage() {
         onTouchStart={() => setIsNavVisible(true)}
       >
       </div>{/* Fixed position header with controls - will overlay the PDF */}      <div
-        className={`fixed top-0 left-0 right-0 bg-gray-950/90 backdrop-blur-xl px-6 py-5 z-[51]
-          grid grid-cols-1 min-[450px]:grid-cols-2 items-center gap-y-3 gap-x-2 shadow-[0_4px_30px_rgba(0,0,0,0.5)] border-b border-white/10
+        className={`fixed top-0 left-0 right-0 bg-gray-950/60 backdrop-blur-2xl px-6 py-5 z-[51]
+          grid grid-cols-2 ${!isSmallScreen ? 'sm:grid-cols-3' : ''} items-center gap-x-2 shadow-[0_4px_30px_rgba(0,0,0,0.5)] border-b border-white/10
           transition-all duration-500 ease-in-out will-change-transform will-change-opacity
           ${!isNavVisible ? 'opacity-0 transform -translate-y-full' : 'opacity-100 transform translate-y-0'}`}
       >        <Link
-          href="/"
-          className="bg-gradient-to-r from-blue-600 to-blue-400 hover:from-blue-500 hover:to-blue-300
+        href="/"
+        className="bg-gradient-to-r from-blue-600 to-blue-400 hover:from-blue-500 hover:to-blue-300
             text-white px-6 py-2.5 rounded-xl shadow-lg transition-all duration-300
             flex items-center gap-2 font-medium justify-self-center
             hover:shadow-[0_0_15px_rgba(59,130,246,0.5)] hover:scale-105 w-fit"
-        >
+      >
           <span className="text-lg">←</span> Portfolio
         </Link>
 
         {isMounted && (
-          <>            <a
+          <>
+            {!isSmallScreen && (
+              <div className="justify-center hidden sm:flex">
+                <PDFZoomControls
+                  scale={scale}
+                  onZoomIn={zoomIn}
+                  onZoomOut={zoomOut}
+                  onResetZoom={resetZoom}
+                />
+              </div>
+            )}
+
+            <a
               href={resumePath}
               download
               className="bg-gradient-to-r from-emerald-600 to-emerald-400 hover:from-emerald-500 hover:to-emerald-300
@@ -233,16 +246,8 @@ export default function ResumePage() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
               </svg>
               Download PDF
-            </a>            {!isSmallScreen && (
-              <div className="col-span-2 mt-3 flex justify-center">
-                <PDFZoomControls
-                  scale={scale}
-                  onZoomIn={zoomIn}
-                  onZoomOut={zoomOut}
-                  onResetZoom={resetZoom}
-                />
-              </div>
-            )}
+            </a>
+
           </>
         )}
       </div>      {/* Full screen PDF viewer anchored at the top of the window (y=0) */}
@@ -254,7 +259,7 @@ export default function ResumePage() {
             onDocumentLoad={handleDocumentLoad}
             containerRef={containerRef}
           />
-        </div>      ) : (        <div className="flex-grow flex justify-center items-center pt-0">
+        </div>) : (<div className="flex-grow flex justify-center items-center pt-0">
           <div className="animate-pulse text-gray-400 flex items-center gap-3">
             <svg className="animate-spin h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
               <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>

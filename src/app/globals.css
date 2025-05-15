@@ -105,8 +105,9 @@ html, body, #__next {
 }
 
 @media (pointer: coarse) {
-  /* Improved tap targets for touch screens */
-  button, a {
+  /* Improved tap targets for buttons (but not for PDF links) */
+  button:not(.react-pdf__Page__annotations *),
+  a:not(.react-pdf__Page__annotations *):not(.annotationLayer *) {
     min-height: 44px;
     min-width: 44px;
   }
