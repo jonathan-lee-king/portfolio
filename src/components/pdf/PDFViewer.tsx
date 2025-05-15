@@ -34,7 +34,10 @@ export default function PDFViewer({ pdfPath, scale, onDocumentLoad, containerRef
   return (
     <div className="h-full flex flex-col relative">
       {/* Full height PDF container starting from the top */}
-      <div ref={containerRef} className="flex-grow h-full w-full overflow-auto pdf-viewer-container px-2">
+      <div
+        ref={containerRef}
+        className="flex-grow h-full w-full overflow-auto pdf-viewer-container px-2 touch-manipulation"
+      >
         <Document
           file={pdfPath}
           onLoadSuccess={onDocumentLoadSuccess}

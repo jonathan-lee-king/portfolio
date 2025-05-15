@@ -51,6 +51,7 @@ html, body, #__next {
   display: flex;
   flex-direction: column;
   height: 100%;
+  width: 100%;
 }
 
 .pdf-viewer-container {
@@ -95,4 +96,24 @@ html, body, #__next {
 .pdf-controls button:disabled {
   opacity: 0.5;
   cursor: not-allowed;
+}
+
+/* Touch and drag event handling improvements */
+.touch-manipulation {
+  touch-action: manipulation;
+  -webkit-overflow-scrolling: touch;
+}
+
+@media (pointer: coarse) {
+  /* Improved tap targets for touch screens */
+  button, a {
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  /* Ensure the navigation is easier to access on mobile */
+  .nav-header {
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+  }
 }
