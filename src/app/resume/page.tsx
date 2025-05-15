@@ -207,7 +207,7 @@ export default function ResumePage() {
         onTouchStart={() => setIsNavVisible(true)}
       >
       </div>{/* Fixed position header with controls - will overlay the PDF */}      <div
-        className={`fixed top-0 left-0 right-0 bg-gray-950/90 backdrop-blur-xl px-6 py-5 z-[51]
+        className={`fixed top-0 left-0 right-0 bg-gray-950/60 backdrop-blur-2xl px-6 py-5 z-[51]
           grid grid-cols-2 ${!isSmallScreen ? 'sm:grid-cols-3' : ''} items-center gap-x-2 shadow-[0_4px_30px_rgba(0,0,0,0.5)] border-b border-white/10
           transition-all duration-500 ease-in-out will-change-transform will-change-opacity
           ${!isNavVisible ? 'opacity-0 transform -translate-y-full' : 'opacity-100 transform translate-y-0'}`}
