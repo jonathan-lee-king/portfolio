@@ -148,6 +148,13 @@ export default function ResumePage() {
     window.addEventListener('click', handleInteraction);
     window.addEventListener('keydown', handleInteraction);
     window.addEventListener('scroll', handleInteraction);
+    // Add touch events for mobile devices
+    window.addEventListener('touchstart', handleInteraction);
+    window.addEventListener('touchmove', handleInteraction);
+    window.addEventListener('touchend', handleInteraction);
+    window.addEventListener('dragstart', handleInteraction);
+    window.addEventListener('drag', handleInteraction);
+    window.addEventListener('dragend', handleInteraction);
 
     // Initial timeout
     timeoutRef.current = setTimeout(() => {
@@ -160,6 +167,13 @@ export default function ResumePage() {
       window.removeEventListener('click', handleInteraction);
       window.removeEventListener('keydown', handleInteraction);
       window.removeEventListener('scroll', handleInteraction);
+      // Clean up touch event listeners
+      window.removeEventListener('touchstart', handleInteraction);
+      window.removeEventListener('touchmove', handleInteraction);
+      window.removeEventListener('touchend', handleInteraction);
+      window.removeEventListener('dragstart', handleInteraction);
+      window.removeEventListener('drag', handleInteraction);
+      window.removeEventListener('dragend', handleInteraction);
       if (timeoutRef.current) {
         clearTimeout(timeoutRef.current);
       }
@@ -168,6 +182,18 @@ export default function ResumePage() {
 
   return (
     <main className="min-h-screen h-screen bg-gray-950 text-white flex flex-col relative">
+      {/* Touch handle to pull down nav bar */}
+      {!isNavVisible && (
+        <div
+          className="fixed top-0 left-0 right-0 h-8 z-50 flex justify-center items-center touch-manipulation bg-gradient-to-b from-gray-950/40 to-transparent"
+          onClick={() => setIsNavVisible(true)}
+          onTouchStart={() => setIsNavVisible(true)}
+        >
+          <div className="w-16 h-1 bg-white/20 rounded-full mt-3"></div>
+        </div>
+      )
+      }
+
       {/* Fixed position header with controls */}
       <div
         className={`fixed top-0 left-0 right-0 bg-gray-950/40 backdrop-blur-xl px-6 py-5 z-50
